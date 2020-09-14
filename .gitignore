@@ -4,8 +4,11 @@
 /icons
 /raw
 /skins
+/logs
 __pycache__
 *.log
 /*.json
 update.sh
 update.bat
+rsync-site.sh
+start.sh

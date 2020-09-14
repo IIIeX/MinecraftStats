@@ -2,7 +2,7 @@ import base64
 import json
 import urllib.request
 
-profile_api_url = 'https://sessionserver.mojang.com/session/minecraft/profile/'
+profile_api_url = 'http://local.elizium-group.ru/profile/getProfile.php?uuid='
 
 # get player profile via Mojang's API
 # the returned object is the first property ("textures") decoded
@@ -12,7 +12,7 @@ def get_player_profile(uuid):
 
     response_str = None
 
-    with urllib.request.urlopen(profile_api_url + compact_uuid) as response:
+    with urllib.request.urlopen(profile_api_url + uuid) as response:
         response_str = response.read().decode()
 
     if response_str:
@@ -25,16 +25,15 @@ def get_player_profile(uuid):
             # get player skin URL
             try:
                 dec = json.loads(base64.b64decode(response['properties'][0]['value']).decode())
-                profile['skin'] = dec['textures']['SKIN']['url'][38:] # remove URL prefix: http://textures.minecraft.net/texture/
+                profile['skin'] = dec['textures']['SKIN']['url'][27:] # remove URL prefix: http://textures.minecraft.net/texture/
             except:
                 profile['skin'] = False
 
             return profile
         else:
-            print('unexpected Mojang API response for ' + profile_api_url + compact_uuid + ':')
-            print(response)
+            print('unexpected Mojang API response for ' + profile_api_url + uuid + ':')
     else:
-        print('empty Mojang API response for ' + profile_api_url + compact_uuid)
+        print('empty Mojang API response for ' + profile_api_url + uuid)
     
     # failed
     return None

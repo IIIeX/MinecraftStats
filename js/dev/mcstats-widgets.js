@@ -240,7 +240,7 @@ mcstats.makePlayerWidget = function(uuid, skinCss, asLink) {
     // get player's skin
     if(p['skin']) {
         // compile skin URL
-        skin = 'https://textures.minecraft.net/texture/' + p['skin'];
+        skin = 'https://s.elizium-group.ru/' + p['skin'];
     } else {
         // default skin - find out whether it's Steve or Alex
         var even = parseInt(uuid[ 7], 16) ^
